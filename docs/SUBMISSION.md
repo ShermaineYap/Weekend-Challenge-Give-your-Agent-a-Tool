@@ -63,7 +63,7 @@ Amazon Bedrock (Nova Pro), **Amazon EventBridge Scheduler**, AWS Lambda, Amazon 
 
 ## Links
 - Code: https://github.com/ShermaineYap/Weekend-Challenge-Give-your-Agent-a-Tool
-- Demo video (< 3 min): <ADD YOUTUBE LINK>
+- Demo video (2:18): https://youtu.be/rPuXLyc5WJI
 
 ## Eval results
 The most surprising finding: **the original agent didn't just fail to follow up. It promised to.** In 3 of 5 cases it said things like *"I will check again in an hour. Please wait."* It had no way to do that. Giving it the tool turned empty promises into real ones.

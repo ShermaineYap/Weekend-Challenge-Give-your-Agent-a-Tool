@@ -1,6 +1,6 @@
 # ⏳ Patience — give your agent the ability to wait
 
-> **AWS Builder Center Weekend Challenge: Give your Agent a Tool** (Oct 2026)
+> **AWS Builder Center Weekend Challenge: Give your Agent a Tool** (Oct 2026) · ▶️ **[Demo video (2:18)](https://youtu.be/rPuXLyc5WJI)**
 > One new tool, `schedule_wakeup`, built on **Amazon EventBridge Scheduler**, lets a
 > **Strands Agents** + **Amazon Bedrock** agent do something agents almost never can:
 > **come back later, on its own, and finish the job.**
