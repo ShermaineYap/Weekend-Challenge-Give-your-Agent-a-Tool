@@ -1,0 +1,242 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--line:#1f2937;--txt:#e5e7eb;--mut:#7c8597;--amber:#ffb020;--green:#34d399;--red:#f87171;--blue:#60a5fa;--violet:#a78bfa}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--txt);font-family:Inter,sans-serif}
+.scene{position:absolute;inset:0;padding:90px 120px;opacity:0}
+.el{opacity:0;transform:translateY(14px)}
+h1{font-size:150px;font-weight:800;letter-spacing:-5px}
+h2{font-size:64px;font-weight:750;letter-spacing:-1.5px;line-height:1.1}
+.kick{font-size:26px;letter-spacing:6px;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:22px}
+.sub{font-size:44px;color:#cbd2de;margin-top:18px;font-weight:500}
+.chips{display:flex;gap:16px;margin-top:46px}
+.chip{border:1.5px solid #374151;border-radius:999px;padding:12px 24px;font-size:26px;color:#cbd2de}
+.chip b{color:var(--amber)}
+.term{background:#0a0d13;border:1.5px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px #0008}
+.tbar{height:52px;background:#141a24;display:flex;align-items:center;padding:0 22px;gap:10px;border-bottom:1.5px solid var(--line)}
+.dot{width:14px;height:14px;border-radius:50%;background:#374151}
+.tlabel{margin-left:16px;font-size:22px;color:var(--mut);font-weight:600}
+.tlabel b{color:var(--txt)}
+.tbody{padding:26px 32px;font-family:"DejaVu Sans Mono",monospace;font-size:25px;line-height:1.55;white-space:pre-wrap}
+.cmd{color:var(--txt)} .cmd::before{content:"$ ";color:var(--green)}
+.think{color:#5c6577;font-style:italic;font-size:21px}
+.tool{color:var(--blue);font-weight:700}
+.tool.new{color:var(--amber)}
+.reply{color:#f3f4f6}
+.wake{color:var(--amber);font-weight:700;font-size:28px}
+.ok{color:var(--green)}
+.hl{background:#ffb02022;outline:2px solid #ffb02088;border-radius:6px;padding:2px 6px}
+.stamp{position:absolute;border:6px solid var(--red);color:var(--red);font-weight:900;font-size:64px;letter-spacing:4px;padding:10px 30px;border-radius:14px;transform:rotate(-8deg);background:#0b0f17cc}
+.badge{display:inline-block;background:#ffb02018;color:var(--amber);border:1.5px solid #ffb02066;border-radius:10px;padding:6px 16px;font-size:22px;font-weight:700}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:22px;padding:34px 40px}
+.code{font-family:"DejaVu Sans Mono",monospace;font-size:27px;line-height:1.6;white-space:pre}
+.k{color:var(--violet)} .s{color:#86efac} .c{color:#5c6577} .f{color:var(--amber)} .n{color:#f9a8d4}
+.cap{position:absolute;left:0;right:0;bottom:44px;text-align:center;font-size:34px;font-weight:600;color:#fff;text-shadow:0 2px 12px #000}
+.cap span{background:#000000aa;padding:8px 22px;border-radius:12px;box-decoration-break:clone;-webkit-box-decoration-break:clone;line-height:1.6}
+.prog{position:absolute;left:0;top:0;height:6px;background:var(--amber)}
+.bar{height:46px;border-radius:8px;background:linear-gradient(90deg,#ffb020,#ff7a20);display:flex;align-items:center;justify-content:flex-end;padding-right:14px;font-weight:700;color:#1a1205;font-size:22px}
+.big{font-size:96px;font-weight:800;letter-spacing:-3px}
+table{border-collapse:collapse;width:100%}
+td{padding:18px 10px;border-bottom:1.5px solid var(--line);font-size:30px}
+td.n2{text-align:center;font-weight:800;font-size:44px}
+.guard{font-size:31px;margin:16px 0;display:flex;gap:16px;align-items:center}
+.guard i{color:var(--green);font-style:normal;font-weight:900}
+</style></head><body>
+<div class="prog" id="prog"></div>
+
+<!-- S1 hook -->
+<section class="scene" id="s1" style="display:flex;flex-direction:column;justify-content:center">
+  <div class="el kick" data-at="0.2">AWS Weekend Challenge · Give your Agent a Tool</div>
+  <h1 class="el" data-at="0.6">Patience<span style="color:var(--amber)">.</span></h1>
+  <div class="el sub" data-at="1.2">Give your agent the ability to <b style="color:var(--amber)">wait</b>.</div>
+  <div class="chips el" data-at="2.0"><div class="chip"><b>Strands</b> Agents SDK</div><div class="chip">Amazon <b>Bedrock</b> · Nova Pro</div><div class="chip">Amazon <b>EventBridge Scheduler</b></div></div>
+</section>
+
+<!-- S2 meet kopi -->
+<section class="scene" id="s2">
+  <div class="el kick" data-at="0">The agent I started with</div>
+  <h2 class="el" data-at="0.3">Meet <span style="color:var(--amber)">Kopi</span> — a data assistant</h2>
+  <div style="display:flex;gap:30px;margin-top:60px">
+    <div class="card el" data-at="2.6" style="flex:1"><div class="code" style="font-size:30px"><span class="f">list_bucket</span>()</div><div class="sub" style="font-size:28px">Look in the S3 data bucket</div></div>
+    <div class="card el" data-at="3.6" style="flex:1"><div class="code" style="font-size:30px"><span class="f">summarise_csv</span>()</div><div class="sub" style="font-size:28px">Totals &amp; group-bys</div></div>
+    <div class="card el" data-at="4.6" style="flex:1"><div class="code" style="font-size:30px"><span class="f">notify_user</span>()</div><div class="sub" style="font-size:28px">Email via Amazon SES</div></div>
+  </div>
+  <div class="card el" data-at="7.2" style="margin-top:50px;border-color:#ffb02066;font-size:38px;line-height:1.4">
+    <span style="color:var(--mut);font-size:26px;display:block;margin-bottom:10px">PROMPT</span>
+    “Finance is uploading <b>q3_sales.csv</b> this afternoon. When it lands, email me revenue by region.”
+  </div>
+</section>
+
+<!-- S3 before -->
+<section class="scene" id="s3">
+  <div class="term" style="height:820px">
+    <div class="tbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="tlabel"><b style="color:var(--red)">BEFORE</b> · Kopi with 3 tools · live run on Amazon Bedrock</div></div>
+    <div class="tbody">
+<div class="cmd" data-type="0.0" data-cps="70">python -m patience.cli --before "Finance is uploading q3_sales.csv this afternoon. When it lands, email me revenue by region."</div>
+<div class="el think" data-at="1.0">&lt;thinking&gt; I need to list the files in the S3 bucket to check if q3_sales.csv is available. &lt;/thinking&gt;</div>
+<div class="el tool" data-at="1.4">Tool #1: list_bucket</div>
+<div class="el think" data-at="2.2">&lt;thinking&gt; The file q3_sales.csv is not yet available in the S3 bucket. I will need to check again later. &lt;/thinking&gt;</div>
+<div class="el reply" data-at="3.0" style="margin-top:14px">The file q3_sales.csv is not yet available in the S3 bucket. <span class="hl el" data-at="4.0">I will check again later and email you once I have the revenue by region.</span></div>
+<div class="el" data-at="9.6" style="margin-top:40px;color:var(--mut);font-family:Inter;font-size:30px">Scheduled follow-ups: <b style="color:var(--red)">0</b> &nbsp;·&nbsp; Agent process: <b style="color:var(--red)">exited</b></div>
+    </div>
+  </div>
+  <div class="stamp el" data-at="7.7" style="right:200px;top:700px">EMPTY PROMISE</div>
+</section>
+
+<!-- S4 the tool -->
+<section class="scene" id="s4">
+  <div class="el kick" data-at="0">The one new tool</div>
+  <h2 class="el" data-at="0.3"><span style="font-family:'DejaVu Sans Mono';color:var(--amber)">schedule_wakeup</span></h2>
+  <div class="card el" data-at="1.6" style="margin-top:40px"><div class="code"><span class="n">@tool</span>(context=<span class="k">True</span>)
+<span class="k">def</span> <span class="f">schedule_wakeup</span>(<span class="hl el" data-at="3.2">minutes_from_now: int</span>, instruction: str, <span class="hl el" data-at="5.0">note_to_self: str</span>, tool_context):
+    <span class="c">"""Schedule yourself to wake up later and continue this task."""</span>
+    <span class="el" data-at="7.5">scheduler.<span class="f">create_schedule</span>(
+        ScheduleExpression=<span class="s">f"at({run_at})"</span>,          <span class="c"># one-shot</span>
+        Target={<span class="s">"Arn"</span>: <span class="hl">wake_target</span>, <span class="s">"Input"</span>: json.dumps(payload)},  <span class="c"># Lambda or SQS</span>
+        <span class="hl el" data-at="11.5">ActionAfterCompletion=<span class="s">"DELETE"</span></span>,     <span class="c"># cleans itself up</span>
+    )</span></div></div>
+  <div class="el" data-at="9.0" style="margin-top:34px;font-size:30px;color:#cbd2de">Payload = <b style="color:var(--amber)">the agent's memory</b>: original request · instruction · note to self · wake #</div>
+</section>
+
+<!-- S5 after -->
+<section class="scene" id="s5" style="padding-top:44px">
+  <div class="term">
+    <div class="tbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="tlabel"><b style="color:var(--green)">AFTER</b> · same agent + schedule_wakeup · same prompt</div></div>
+    <div class="tbody">
+<div class="cmd" data-type="0.0" data-cps="90">python -m patience.cli "Finance is uploading q3_sales.csv this afternoon. When it lands, email me revenue by region."</div>
+<div class="el tool" data-at="1.2">Tool #1: list_bucket   <span style="color:var(--mut);font-weight:400">→ not there yet</span></div>
+<div class="el tool new" data-at="2.6">Tool #2: schedule_wakeup   <span class="ok" style="font-weight:400">→ wake #1 booked</span></div>
+<div class="el think" data-at="3.2">&lt;thinking&gt; The wake-up has been scheduled successfully. I will check for the q3_sales.csv file again and proceed accordingly. &lt;/thinking&gt;</div>
+    </div>
+  </div>
+  <div class="el" data-at="5.0" style="margin-top:18px;width:86%;margin-left:7%">
+    <div style="font-size:24px;color:var(--mut);margin-bottom:10px;font-weight:600">LIVE · Amazon EventBridge Scheduler console</div>
+    <img src="scheduler_crop.png" style="width:100%;border-radius:14px;border:2px solid #ffb02088">
+  </div>
+</section>
+
+<!-- S6 wake 1 -->
+<section class="scene" id="s6">
+  <div class="term" style="height:760px">
+    <div class="tbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="tlabel"><b>Wake-up worker</b> · nobody is typing here</div></div>
+    <div class="tbody">
+<div style="color:var(--mut)">⏳ Waiting for wake-ups on patience-WakeQueue …</div>
+<div class="el wake" data-at="0.8" style="margin-top:24px">⏰ Wake-up #1 for chain 627d44b4cfbd</div>
+<div class="el think" data-at="2.0">&lt;thinking&gt; I need to check if the q3_sales.csv file has been uploaded to the S3 bucket. &lt;/thinking&gt;</div>
+<div class="el tool" data-at="3.4">Tool #1: list_bucket   <span style="color:var(--mut);font-weight:400">→ still not there</span></div>
+<div class="el tool new" data-at="5.6">Tool #2: schedule_wakeup   <span class="ok" style="font-weight:400">→ wake #2 booked (notes carried forward)</span></div>
+<div class="el think" data-at="6.4">&lt;thinking&gt; Once the file is available, I will summarize it and email the user the revenue by region. &lt;/thinking&gt;</div>
+    </div>
+  </div>
+  <div class="el" data-at="1.2" style="margin-top:26px"><span class="badge">Time-compressed for the demo: the agent asked for 30 min → 1 min</span></div>
+</section>
+
+<!-- S7 file + wake 2 + email -->
+<section class="scene" id="s7">
+  <div style="display:flex;gap:36px">
+    <div class="term" style="flex:1.25;height:880px">
+      <div class="tbar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="tlabel"><b>Wake-up worker</b></div></div>
+      <div class="tbody" style="font-size:23px">
+<div class="el" data-at="0" style="color:var(--green)">📤 uploaded s3://…/q3_sales.csv</div>
+<div class="el wake" data-at="1.8" style="margin-top:22px">⏰ Wake-up #2 for chain 627d44b4cfbd</div>
+<div class="el tool" data-at="3.0">Tool #1: list_bucket   <span class="ok" style="font-weight:400">→ found it</span></div>
+<div class="el tool" data-at="4.2">Tool #2: summarise_csv</div>
+<div class="el tool" data-at="5.4">Tool #3: notify_user   <span class="ok" style="font-weight:400">→ email sent (SES)</span></div>
+<div class="el reply" data-at="8.6" style="margin-top:18px">The user has been notified with the revenue by region for Q3. The task is now complete.</div>
+<div class="el" data-at="9.6" style="margin-top:18px;color:var(--mut)">$ aws scheduler list-schedules … → <span class="ok">[]</span>  (nothing left behind)</div>
+      </div>
+    </div>
+    <div class="card el" data-at="5.8" style="flex:1;background:#f8fafc;color:#111827;border:none">
+      <div style="font-size:20px;color:#6b7280">From: Kopi (Amazon SES) · To: me</div>
+      <div style="font-size:32px;font-weight:800;margin:10px 0 26px">Q3 Sales Revenue by Region</div>
+      <div style="display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;font-size:24px">
+        <div><b>Johor</b></div><div class="bar" style="width:100%">RM 151,947</div>
+        <div>Penang</div><div class="bar" style="width:90.8%">RM 138,024</div>
+        <div>Sarawak</div><div class="bar" style="width:87.2%">RM 132,561</div>
+        <div>Klang Valley</div><div class="bar" style="width:87.0%">RM 132,160</div>
+        <div>Sabah</div><div class="bar" style="width:73.4%">RM 111,469</div>
+      </div>
+      <div style="margin-top:28px;font-size:20px;color:#6b7280">Figures from the live run's summarise_csv on q3_sales.csv</div>
+    </div>
+  </div>
+</section>
+
+<!-- S8 guardrails + eval -->
+<section class="scene" id="s8">
+  <div style="display:flex;gap:60px">
+    <div style="flex:1">
+      <div class="el kick" data-at="0">Craft · guardrails</div>
+      <div class="guard el" data-at="1.6"><i>✓</i> Must check the world before it sleeps <span style="color:var(--mut);font-size:22px">(Strands hook)</span></div>
+      <div class="guard el" data-at="3.2"><i>✓</i> One wake-up per turn</div>
+      <div class="guard el" data-at="4.4"><i>✓</i> Max chained wake-ups per task</div>
+      <div class="guard el" data-at="6.0"><i>✓</i> Idempotent schedule names</div>
+      <div class="guard el" data-at="7.2"><i>✓</i> Optional human approval <span style="color:var(--mut);font-size:22px">(Strands interrupt)</span></div>
+      <div class="guard el" data-at="8.6"><i>✓</i> Least-privilege IAM · 10 offline tests</div>
+    </div>
+    <div class="card el" data-at="10.2" style="flex:1.1">
+      <div style="font-size:24px;color:var(--mut);font-weight:700;letter-spacing:2px">EVAL · 5 PROMPTS THAT NEED WAITING · NOVA PRO</div>
+      <table style="margin-top:20px">
+        <tr><td></td><td class="n2" style="font-size:26px;color:var(--mut)">BEFORE</td><td class="n2" style="font-size:26px;color:var(--mut)">AFTER</td></tr>
+        <tr class="el" data-at="12.0"><td>Follow-ups actually booked</td><td class="n2" style="color:var(--red)">0/5</td><td class="n2 el" data-at="17.6" style="color:var(--green)">5/5</td></tr>
+        <tr class="el" data-at="14.0"><td>Empty promises</td><td class="n2" style="color:var(--red)">3/5</td><td class="n2 el" data-at="18.6" style="color:var(--green)">0/5</td></tr>
+        <tr class="el" data-at="20.0"><td>Unneeded wake-ups (control)</td><td class="n2" style="color:var(--mut)">—</td><td class="n2" style="color:var(--green)">0/2</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- S9 reuse + close -->
+<section class="scene" id="s9">
+  <div class="el kick" data-at="0">Reuse it in any Strands agent</div>
+  <div class="card el" data-at="0.6" style="margin-top:20px"><div class="code" style="font-size:32px"><span class="k">from</span> patience.wakeup <span class="k">import</span> <span class="f">schedule_wakeup</span>, <span class="f">WakeupGuard</span>
+
+agent = Agent(tools=[*your_tools, <span class="f">schedule_wakeup</span>], hooks=[<span class="f">WakeupGuard</span>()])</div></div>
+  <div class="el" data-at="2.6" style="margin-top:26px;font-size:30px;color:#cbd2de">+ <b>template.yaml</b> (Scheduler group · role · Lambda / SQS) &nbsp;→&nbsp; follow-ups · polling · “remind me tomorrow” · retry-later</div>
+  <div class="el" data-at="9.0" style="margin-top:80px;font-size:52px;font-weight:750;line-height:1.25">Before, my agent made promises it couldn't keep.<br><span style="color:var(--amber)">Now it keeps them.</span></div>
+  <div class="el" data-at="11.5" style="margin-top:40px;font-size:28px;color:var(--mut);font-family:'DejaVu Sans Mono'">github.com/ShermaineYap/Weekend-Challenge-Give-your-Agent-a-Tool</div>
+</section>
+
+<div class="cap" id="cap"><span id="capt"></span></div>
+
+<script>
+const SCENES = window.SCENES || [];   // [{id, start, dur, lead, audio, text}]
+const cmdText = new Map();
+document.querySelectorAll('[data-type]').forEach(e => { cmdText.set(e, e.textContent); e.textContent=''; });
+function ease(x){return x<0?0:x>1?1:1-Math.pow(1-x,3)}
+function captions(sc, rel){
+  const t = rel - sc.lead; if (t < 0 || t > sc.audio + 0.2) return '';
+  const txt = sc.text.replace(/A\.I\./g,'AI').replace(/C\.S\.V\./g,'CSV');
+  const parts = txt.match(/[^.!?]+[.!?]+/g) || [sc.text];
+  const total0 = 0;
+  const total = parts.reduce((a,p)=>a+p.length,0); let acc=0;
+  for (const p of parts){ const d = p.length/total*sc.audio; if (t < acc + d) return p.trim().replace('Schedule wake up','schedule_wakeup').replace(/A\.I\./,'AI').replace(/C\.S\.V\./,'CSV').replace('wake up','wake-up').replace('Schedule wake up','schedule_wakeup'); acc += d; }
+  return '';
+}
+window.render = function(t){
+  const total = SCENES.length ? SCENES[SCENES.length-1].start + SCENES[SCENES.length-1].dur : 1;
+  document.getElementById('prog').style.width = (t/total*100)+'%';
+  let cap='';
+  for (const sc of SCENES){
+    const el = document.getElementById(sc.id);
+    const rel = t - sc.start;
+    const fadeIn = ease(rel/0.4), fadeOut = ease((sc.dur - rel)/0.35);
+    const on = rel >= 0 && rel < sc.dur;
+    el.style.opacity = on ? Math.min(fadeIn, fadeOut) : 0;
+    if (!on) continue;
+    cap = captions(sc, rel);
+    const r = rel - sc.lead;
+    el.querySelectorAll('.el').forEach(e => {
+      const p = ease((r - parseFloat(e.dataset.at))/0.45);
+      e.style.opacity = p; e.style.transform = `translateY(${(1-p)*14}px)`;
+    });
+    el.querySelectorAll('[data-type]').forEach(e => {
+      const full = cmdText.get(e); const n = Math.floor(Math.max(0, r - parseFloat(e.dataset.type)) * parseFloat(e.dataset.cps));
+      e.textContent = full.slice(0, n) + (n < full.length && Math.floor(t*2)%2 ? '▍' : '');
+    });
+  }
+  document.getElementById('capt').textContent = cap;
+  document.getElementById('cap').style.display = cap ? 'block' : 'none';
+};
+</script>
+</body></html>

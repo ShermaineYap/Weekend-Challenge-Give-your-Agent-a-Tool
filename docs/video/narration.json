@@ -1,0 +1,11 @@
+[
+ ["s1","Every A.I. agent has the same blind spot. It can't wait. If the answer depends on something that hasn't happened yet, the agent hands the problem back to you. This weekend, I gave my agent one tool that fixes that."],
+ ["s2","Meet Kopi. A Strands agent on Amazon Bedrock. It can read our S3 bucket, summarise C.S.V. files, and email me. Let's ask it for Q3 revenue by region, once finance uploads the file."],
+ ["s3","It checks the bucket. No file yet. Then it says: I will check again later, and email you. Sounds helpful. But it's an empty promise. When this request ends, the agent is gone. Nobody comes back."],
+ ["s4","So I gave it one new tool. Schedule wake up. The agent decides when to come back, and writes a note to its future self. The tool books a one-time Amazon EventBridge Scheduler entry that wakes the agent with that note, and deletes itself after it fires."],
+ ["s5","Same prompt. Same model. Now it checks the bucket, sees nothing, and books a wake up. There it is, live in EventBridge Scheduler."],
+ ["s6","A minute later, with no one prompting it, the agent wakes itself up. It re-checks the bucket. Still nothing. So it goes back to sleep, and carries its notes forward."],
+ ["s7","Now finance uploads the file. On the next wake up, the agent finds it, summarises revenue by region, and emails me. Johor comes out on top. The task is done, so it stops scheduling."],
+ ["s8","It's built to be safe. It must check before it sleeps. One wake up per turn. A cap on chained wake ups. Idempotent schedules. And optional human approval, through a Strands interrupt. Across five prompts that need waiting, the original agent booked zero follow ups, and made three empty promises. With the new tool, five out of five. And no unnecessary wake ups."],
+ ["s9","It's reusable. Add one tool and one hook to any Strands agent, deploy one template, and your agent can follow up, poll a deploy, or remind you tomorrow. Before, my agent made promises it couldn't keep. Now, it keeps them."]
+]
