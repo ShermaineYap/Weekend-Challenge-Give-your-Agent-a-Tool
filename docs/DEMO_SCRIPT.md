@@ -4,7 +4,9 @@ Record with OBS or Loom at 1080p. Use a big terminal font (18pt+) and a split sc
 **left = terminal 2 (you talking to the agent), right = terminal 1 (the worker / "alarm clock")**.
 Put your email inbox in a third window for the ending.
 
-Before you record: `python scripts/drop_file.py --remove`, then start `python -m patience.worker` in terminal 1.
+Before you record (CloudShell works fine; use its "+" for a second tab):
+`cd ~/patience && pkill -f patience.worker; python3 scripts/drop_file.py --remove`, then run `python3 -m patience.worker` in tab 1.
+`.env` already has `PATIENCE_DEMO_CAP_MINUTES=1`, so each wake-up comes about 1 minute later. Say "time-compressed for the demo" on screen.
 
 ---
 
@@ -20,8 +22,8 @@ Run:
 ```
 python -m patience.cli --before "Finance is uploading q3_sales.csv this afternoon. When it lands, email me revenue by region."
 ```
-Point at the reply ("please ask me again once it's uploaded").
-> "It has every tool it needs to do the work. What it doesn't have is time. Now I'm the one who has to remember."
+Point at the reply: *"I will check again in an hour. Please wait."*
+> "Sounds helpful. It's a lie. This agent has no way to come back in an hour. Once this request ends, it's gone. In my tests it made this exact empty promise 3 times out of 5."
 
 ### 0:45–1:15 · The one tool
 Show `patience/wakeup.py` in the editor for about 10 seconds. Highlight the `@tool` signature and the `create_schedule(... at(...), ActionAfterCompletion="DELETE")` call.
@@ -43,11 +45,11 @@ python -m patience.cli "Finance is uploading q3_sales.csv this afternoon. When i
 Optionally flash the EventBridge Scheduler console showing the schedule, then show it auto-deleted.
 
 ### 2:20–2:45 · Why it matters
-Show the eval table (BEFORE vs AFTER) and the safety-rail list for about 5 seconds.
+Show the eval table for about 5 seconds: **follow-ups booked 0/5 → 5/5, empty promises 3/5 → 0/5, unnecessary wake-ups 0/2.**
 > "It has guardrails: a max number of wake-ups, a hook that won't let it sleep again without re-checking, idempotent schedules, and an optional human approval interrupt. It's one tool, one hook and one Lambda, so any Strands agent can use it to follow up, poll a deploy or remind you tomorrow."
 
 ### 2:45–2:55 · Close
-> "Before, the agent made me wait. Now it waits for me. Code's on GitHub."
+> "Before, my agent made promises it couldn't keep. Now it keeps them. Code's on GitHub."
 End card: repo URL.
 
 ---
