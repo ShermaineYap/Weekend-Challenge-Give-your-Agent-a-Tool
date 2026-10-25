@@ -102,7 +102,7 @@ def test_depth_limit_stops_infinite_loops():
 
 
 def test_rejects_out_of_range_horizon():
-    run_task("x", model=ScriptedModel([[_schedule(999999)], [{"text": "ok"}]]), callback_handler=None)
+    run_task("x", model=ScriptedModel([[LIST], [_schedule(999999)], [{"text": "ok"}]]), callback_handler=None)
     assert wakeup.DRY_RUN_LOG == []
 
 
@@ -121,9 +121,29 @@ def test_real_scheduler_call_shape(monkeypatch):
     monkeypatch.setenv("PATIENCE_TARGET_ARN", "arn:aws:sqs:us-east-1:123:patience-wake")
     monkeypatch.setenv("PATIENCE_SCHEDULER_ROLE", "arn:aws:iam::123:role/sched")
     wakeup.set_scheduler_client(FakeScheduler())
-    run_task("x", model=ScriptedModel([[_schedule(10)], [{"text": "ok"}]]), callback_handler=None)
+    run_task("x", model=ScriptedModel([[LIST], [_schedule(10)], [{"text": "ok"}]]), callback_handler=None)
 
     kw = calls[0]
     assert kw["ScheduleExpression"].startswith("at(") and kw["ActionAfterCompletion"] == "DELETE"
     assert kw["FlexibleTimeWindow"] == {"Mode": "OFF"}
     assert json.loads(kw["Target"]["Input"])["wake_depth"] == 1
+
+
+def test_guard_blocks_scheduling_before_checking_on_first_turn():
+    run_task("x", model=ScriptedModel([[_schedule(5)], [{"text": "ok"}]]), callback_handler=None)
+    assert wakeup.DRY_RUN_LOG == []
+
+
+def test_only_one_wakeup_per_turn():
+    run_task("x", model=ScriptedModel([[LIST], [_schedule(1)], [_schedule(60)], [{"text": "ok"}]]),
+             callback_handler=None)
+    assert len(wakeup.DRY_RUN_LOG) == 1
+
+
+def test_demo_cap_compresses_time(monkeypatch):
+    monkeypatch.setenv("PATIENCE_DEMO_CAP_MINUTES", "1")
+    from datetime import datetime
+    run_task("x", model=ScriptedModel([[LIST], [_schedule(60)], [{"text": "ok"}]]), callback_handler=None)
+    s = wakeup.DRY_RUN_LOG[0]
+    delta = datetime.fromisoformat(s["run_at"]) - datetime.fromisoformat(s["scheduled_at"])
+    assert delta.total_seconds() <= 61

@@ -22,7 +22,8 @@ Current time (UTC): {now}"""
 
 WAKEUP_PROMPT = """
 You can now act over time. If a task depends on something that hasn't happened yet,
-do not ask the user to come back later: call schedule_wakeup and handle it yourself.
+do not ask the user to come back later and do not promise to "check again" yourself:
+first check the current situation with your tools, then call schedule_wakeup (once) and handle it yourself.
 Your future self remembers NOTHING except the instruction and note_to_self you write, so make them complete.
 When a task is finally done, send the result and do not schedule further wake-ups."""
 

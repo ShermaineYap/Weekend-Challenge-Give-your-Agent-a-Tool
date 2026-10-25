@@ -67,7 +67,9 @@ out to be a clean, serverless way to carry state across time with no database at
 | Concern | How it's handled |
 |---|---|
 | Runaway loops | `PATIENCE_MAX_DEPTH` (default 6) chained wake-ups per task; the tool returns an error telling the model to stop and report. |
-| Lazy sleeping | `WakeupGuard` hook **cancels** `schedule_wakeup` on a wake-up turn if the agent hasn't re-checked anything first. |
+| Sleeping blind | `WakeupGuard` hook **cancels** `schedule_wakeup` until the agent has checked the world with another tool this turn (on first contact *and* after every wake-up). |
+| Double-booking | Only one wake-up per turn; a second call is rejected with the time already booked. |
+| Demo time-compression | `PATIENCE_DEMO_CAP_MINUTES=1` clamps any interval (e.g. "check in 60 min") to 1 min and tells the model it was compressed, so a full sleep/wake cycle fits in a 3-min video. |
 | Too far ahead | `minutes_from_now` capped (default 7 days). |
 | Duplicate schedules on retries | Deterministic schedule name `patience-<chain>-d<depth>`; `ConflictException` treated as success. |
 | Clean-up | One-shot `at()` schedules with `ActionAfterCompletion=DELETE` — nothing to garbage-collect. |
@@ -117,6 +119,7 @@ sam deploy --guided --stack-name patience --region us-east-1 --capabilities CAPA
 #   --target sqs    → wake-ups go to a queue drained by a local worker (best for a live demo)
 #   --target lambda → wake-ups run in Lambda (fully serverless)
 python scripts/configure.py --stack patience --region us-east-1 --target sqs
+echo PATIENCE_DEMO_CAP_MINUTES=1 >> .env   # optional: compress time for demos
 ```
 
 **Demo (two terminals):**

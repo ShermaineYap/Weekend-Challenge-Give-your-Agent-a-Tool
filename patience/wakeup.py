@@ -18,6 +18,7 @@ Configuration (env vars):
     PATIENCE_GROUP           Schedule group name                          (default "patience")
     PATIENCE_MAX_MINUTES     Furthest the agent may schedule ahead        (default 10080 = 7 days)
     PATIENCE_MAX_DEPTH       Max chained wake-ups per task                (default 6)
+    PATIENCE_DEMO_CAP_MINUTES  Demo/time-compression mode: clamp every wake-up to at most N minutes
     PATIENCE_DRY_RUN=1       Record schedules locally instead of calling AWS (tests / evals)
 """
 
@@ -102,11 +103,21 @@ def schedule_wakeup(
 
     if minutes_from_now < 1 or minutes_from_now > max_minutes:
         return _error(f"minutes_from_now must be between 1 and {max_minutes}.")
+    if state.get("_scheduled_this_turn"):
+        return _error(
+            f"You already scheduled a wake-up this turn ({state['_scheduled_this_turn']}). "
+            "Do not schedule another; tell the user when you'll check back."
+        )
     if depth > max_depth:
         return _error(
             f"Wake-up limit reached ({max_depth} chained wake-ups for this task). "
             "Stop rescheduling and tell the user what you found and what is still pending."
         )
+
+    requested = minutes_from_now
+    cap = _cfg("DEMO_CAP_MINUTES")
+    if cap:
+        minutes_from_now = min(minutes_from_now, int(cap))
 
     now = datetime.now(timezone.utc)
     run_at = (now + timedelta(minutes=minutes_from_now)).replace(microsecond=0)
@@ -150,27 +161,24 @@ def schedule_wakeup(
         except Exception as e:  # surface AWS errors to the model so it can tell the user
             return _error(f"Could not schedule wake-up: {e}")
 
-    return {
-        "status": "success",
-        "content": [
-            {
-                "json": {
-                    "scheduled": True,
-                    "schedule_name": name,
-                    "wakes_at_utc": run_at.isoformat(),
-                    "wake_number": depth,
-                    "remaining_wakeups": max_depth - depth,
-                }
-            }
-        ],
+    state["_scheduled_this_turn"] = f"wake #{depth} at {run_at.isoformat()}"
+    result = {
+        "scheduled": True,
+        "schedule_name": name,
+        "wakes_at_utc": run_at.isoformat(),
+        "wake_number": depth,
+        "remaining_wakeups": max_depth - depth,
     }
+    if requested != minutes_from_now:
+        result["demo_mode"] = f"requested {requested} min, compressed to {minutes_from_now} min for the demo"
+    return {"status": "success", "content": [{"json": result}]}
 
 
 class WakeupGuard(HookProvider):
     """Policy layer around schedule_wakeup, using Strands hooks.
 
-    - Blocks wake-ups during a wake-up turn unless the model has done real work first
-      (prevents a lazy "sleep, wake, sleep" loop that never checks anything).
+    - Blocks schedule_wakeup until the model has checked the world with another tool this turn
+      (no sleeping blind, and no lazy "wake, sleep, wake" loop that never re-checks).
     - Optionally requires human approval (Strands interrupts) before booking.
     """
 
@@ -187,14 +195,15 @@ class WakeupGuard(HookProvider):
             return
 
         state = event.invocation_state or {}
-        if state.get("wake_depth", 0) > 0:
-            used = _tools_used_this_turn(event.agent)
-            if not (used - {TOOL_NAME}):
-                event.cancel_tool = (
-                    "You just woke up. Re-check the situation with your other tools "
-                    "BEFORE deciding to sleep again."
-                )
-                return
+        used = _tools_used_this_turn(event.agent)
+        if not (used - {TOOL_NAME}):
+            woke = state.get("wake_depth", 0) > 0
+            event.cancel_tool = (
+                ("You just woke up. " if woke else "")
+                + "Check the current situation with your other tools BEFORE scheduling a wake-up "
+                "(it may already be possible to finish now)."
+            )
+            return
 
         if self.require_approval:
             mins = event.tool_use.get("input", {}).get("minutes_from_now")
