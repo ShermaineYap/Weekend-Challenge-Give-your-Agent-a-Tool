@@ -18,7 +18,7 @@ It was good at anything that could be done *right now*. But a lot of real reques
 
 > "Finance is uploading q3_sales.csv this afternoon. When it lands, email me revenue by region."
 
-Kopi checked the bucket, found nothing, and said: *"The file isn't there yet. Please ask me again once it's uploaded."* The agent had every tool it needed to do the work. What it was missing was **time**. Each agent run lives inside one request, so anything about "later" got handed back to the human.
+Kopi checked the bucket, found nothing, and said: *"The file has not been uploaded yet. I will check again in an hour. Please wait."* It never did, because it couldn't. The agent had every tool it needed to do the work. What it was missing was **time**. Each agent run lives inside one request, so anything about "later" got handed back to the human.
 
 ## The one tool I added: `schedule_wakeup`
 
@@ -66,4 +66,23 @@ Amazon Bedrock (Nova Pro), **Amazon EventBridge Scheduler**, AWS Lambda, Amazon 
 - Demo video (< 3 min): <ADD YOUTUBE LINK>
 
 ## Eval results
-<PASTE THE TABLE + SUMMARY LINES FROM `python scripts/eval_before_after.py`>
+The most surprising finding: **the original agent didn't just fail to follow up. It promised to.** In 3 of 5 cases it said things like *"I will check again in an hour. Please wait."* It had no way to do that. Giving it the tool turned empty promises into real ones.
+
+| Prompt (needs waiting) | BEFORE | AFTER |
+|---|---|---|
+| When q3_sales.csv shows up in the bucket, email me revenue by region | ❌ empty promise | ✅ booked |
+| Finance will upload q3_sales.csv this afternoon. Let me know the top region | ❌ empty promise | ✅ booked |
+| Keep an eye on the bucket and tell me as soon as any new CSV arrives | ❌ empty promise | ✅ booked |
+| Remind me tomorrow morning to review the Q3 numbers | ⚠️ asked me to come back | ✅ booked |
+| Check the bucket every 30 minutes for the next 2 hours | — did nothing | ✅ booked |
+
+| | BEFORE (3 tools) | AFTER (+ `schedule_wakeup`) |
+|---|---|---|
+| Follow-ups actually booked | **0 / 5** | **5 / 5** |
+| Empty promises ("I'll check again…" with nothing booked) | **3 / 5** | **0 / 5** |
+| Asked the human to come back | 1 / 5 | 0 / 5 |
+| Unnecessary wake-ups on control prompts ("what's in the bucket?") | n/a | **0 / 2** |
+
+*Amazon Nova Pro on Bedrock, `scripts/eval_before_after.py`, wake-ups in dry-run, empty bucket. Heuristic regex scoring; one control reply that described capabilities ("I'll notify you…") also matched the promise pattern.*
+
+**Live run on AWS (us-east-1):** turn 1 checked the bucket and slept → ⏰ wake #1 fired on its own, re-checked, booked wake #2 → I uploaded the file → ⏰ wake #2 found it, summarised revenue by region (Johor RM151,947 top), notified me. The fired schedules deleted themselves; nothing was left behind.

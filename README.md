@@ -26,12 +26,31 @@ challenge it already had three tools: `list_bucket` (S3), `summarise_csv`, `noti
 
 | | BEFORE (3 tools) | AFTER (+ `schedule_wakeup`) |
 |---|---|---|
-| Turn 1 | Lists the bucket, sees no file. *"The file isn't there yet. Please ask me again once it's uploaded."* | Lists the bucket, sees no file, **schedules itself 2 min out** with a note: *"User wants revenue by region from q3_sales.csv; at 15:02 it was missing."* |
+| Turn 1 | Lists the bucket, sees no file. *"I will check again in an hour. Please wait."* (It never does. It can't.) | Lists the bucket, sees no file, **schedules itself 2 min out** with a note: *"User wants revenue by region from q3_sales.csv; at 15:02 it was missing."* |
 | Meanwhile | Nothing happens. The human has to remember. | ⏰ Wakes, still missing → **reschedules itself** (wake #2) |
 | File lands | Nothing happens. | ⏰ Wakes, finds the file, summarises it, **emails the result**, stops scheduling |
 | Who did the waiting? | You | The agent |
 
 Run it yourself: `python -m patience.cli --before "..."` vs `python -m patience.cli "..."`.
+
+### Measured (real Bedrock, 5 prompts that need waiting)
+
+| Prompt (needs waiting) | BEFORE | AFTER |
+|---|---|---|
+| When q3_sales.csv shows up in the bucket, email me revenue by region | ❌ empty promise | ✅ booked |
+| Finance will upload q3_sales.csv this afternoon. Let me know the top region | ❌ empty promise | ✅ booked |
+| Keep an eye on the bucket and tell me as soon as any new CSV arrives | ❌ empty promise | ✅ booked |
+| Remind me tomorrow morning to review the Q3 numbers | ⚠️ asked me to come back | ✅ booked |
+| Check the bucket every 30 minutes for the next 2 hours | — did nothing | ✅ booked |
+
+| | BEFORE (3 tools) | AFTER (+ `schedule_wakeup`) |
+|---|---|---|
+| Follow-ups actually booked | **0 / 5** | **5 / 5** |
+| Empty promises ("I'll check again…" with nothing booked) | **3 / 5** | **0 / 5** |
+| Asked the human to come back | 1 / 5 | 0 / 5 |
+| Unnecessary wake-ups on control prompts ("what's in the bucket?") | n/a | **0 / 2** |
+
+*Amazon Nova Pro on Bedrock, `scripts/eval_before_after.py`, wake-ups in dry-run, empty bucket. Heuristic regex scoring; one control reply that described capabilities ("I'll notify you…") also matched the promise pattern.*
 
 ---
 
