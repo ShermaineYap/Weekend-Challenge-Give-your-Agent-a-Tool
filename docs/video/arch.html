@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1600px;height:760px;background:#0b0f17;font-family:Inter,sans-serif;color:#e5e7eb;position:relative;overflow:hidden}
+.box{position:absolute;background:#111827;border:2px solid #1f2937;border-radius:18px;padding:18px 22px;text-align:center}
+.box b{display:block;font-size:24px;margin-bottom:4px}
+.box span{font-size:17px;color:#9aa3b2}
+.mono{font-family:"DejaVu Sans Mono",monospace}
+.hot{border-color:#ffb020;box-shadow:0 0 0 4px #ffb02022}
+.hot b{color:#ffb020}
+h2{position:absolute;left:60px;top:36px;font-size:34px;font-weight:800;letter-spacing:-.5px}
+h2 span{color:#ffb020}
+.note{position:absolute;font-size:17px;color:#9aa3b2}
+</style></head><body>
+<h2>How <span>schedule_wakeup</span> works</h2>
+<div class="box" style="left:60px;top:150px;width:220px"><b>👤 User</b><span>“email me when<br>q3_sales.csv lands”</span></div>
+<div class="box" style="left:380px;top:130px;width:330px;height:170px"><b>🤖 Strands agent</b><span>Amazon Bedrock · Nova Pro<br><span class="mono">list_bucket · summarise_csv<br>notify_user</span></span></div>
+<div class="box hot" style="left:810px;top:150px;width:300px"><b class="mono">schedule_wakeup</b><span>minutes · instruction<br>note_to_self</span></div>
+<div class="box" style="left:1210px;top:150px;width:330px"><b>⏰ EventBridge Scheduler</b><span>one-shot <span class="mono">at(…)</span><br>auto-delete after firing</span></div>
+<div class="box" style="left:1210px;top:440px;width:330px"><b>📨 SQS / λ Lambda</b><span>wake target<br>delivers the payload</span></div>
+<div class="box" style="left:780px;top:440px;width:330px"><b class="mono">handle_wakeup()</b><span>fresh agent, same tools<br>“⏰ WAKE-UP #n — re-check”</span></div>
+<div class="box" style="left:380px;top:440px;width:330px"><b>✅ Done → 📧 SES email</b><span>or not ready yet →<br>schedule_wakeup again</span></div>
+<div class="box" style="left:60px;top:600px;width:650px;border-style:dashed"><b style="font-size:20px">🛡️ WakeupGuard (Strands hooks)</b><span>must check before sleeping · one wake-up per turn · max depth · optional human approval (interrupt)</span></div>
+<svg width="1600" height="760" style="position:absolute;left:0;top:0" fill="none" stroke-width="4" stroke-linecap="round">
+ <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#7c8597"/></marker>
+ <marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ffb020"/></marker></defs>
+ <path d="M282 215 H372" stroke="#7c8597" marker-end="url(#a)"/>
+ <path d="M712 215 H802" stroke="#ffb020" marker-end="url(#h)"/>
+ <path d="M1112 215 H1202" stroke="#ffb020" marker-end="url(#h)"/>
+ <path d="M1375 290 V432" stroke="#ffb020" marker-end="url(#h)"/>
+ <path d="M1208 510 H1118" stroke="#ffb020" marker-end="url(#h)"/>
+ <path d="M778 510 H718" stroke="#7c8597" marker-end="url(#a)"/>
+ <path d="M545 436 V308" stroke="#7c8597" stroke-dasharray="6 10" marker-end="url(#a)"/>
+</svg>
+<div class="note" style="left:1395px;top:350px">fires at the time<br>the agent chose</div>
+<div class="note" style="left:560px;top:355px">reschedule<br>loop</div>
+<div class="note" style="left:1160px;top:612px;width:400px;text-align:right">Payload = the agent's memory:<br>original task · instruction · note_to_self · depth</div>
+</body></html>

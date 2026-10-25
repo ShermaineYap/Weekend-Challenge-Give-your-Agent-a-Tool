@@ -1,0 +1,58 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1200px;height:675px;overflow:hidden;background:radial-gradient(1200px 700px at 78% 30%,#2a1d06 0%,#0b0f17 55%);font-family:Inter,sans-serif;color:#e5e7eb;position:relative}
+.grid{position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:48px 48px}
+.title{position:absolute;left:70px;top:70px}
+.title h1{font-size:92px;font-weight:800;letter-spacing:-3px}
+.title h1 span{color:#ffb020}
+.title p{font-size:28px;color:#aab2c0;margin-top:6px;font-weight:500}
+svg{position:absolute;left:0;top:0}
+</style></head><body><div class="grid"></div>
+<div class="title"><h1>Patience<span>.</span></h1><p>give your agent the ability to wait</p></div>
+<svg width="1200" height="675" viewBox="0 0 1200 675">
+ <defs>
+  <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ffb020"/><stop offset="1" stop-color="#ff7a20"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ </defs>
+ <!-- timeline -->
+ <path d="M110 520 C 300 520, 330 440, 470 440 S 660 520, 800 520 S 980 430, 1090 430" fill="none" stroke="#ffb02055" stroke-width="5" stroke-dasharray="2 14" stroke-linecap="round"/>
+ <!-- node 1: agent checks (empty) -->
+ <g transform="translate(110,520)">
+  <circle r="46" fill="#111827" stroke="#60a5fa" stroke-width="4"/>
+  <rect x="-20" y="-14" width="40" height="30" rx="5" fill="none" stroke="#60a5fa" stroke-width="4"/>
+  <path d="M-20 -6 h40" stroke="#60a5fa" stroke-width="4"/>
+ </g>
+ <!-- node 2: sleep -->
+ <g transform="translate(470,440)">
+  <circle r="46" fill="#111827" stroke="#a78bfa" stroke-width="4"/>
+  <path d="M8 -22 a24 24 0 1 0 14 34 a18 18 0 1 1 -14 -34z" fill="#a78bfa"/>
+  <text x="34" y="-40" font-size="26" font-weight="800" fill="#a78bfa">z</text>
+  <text x="52" y="-62" font-size="20" font-weight="800" fill="#a78bfa">z</text>
+ </g>
+ <!-- node 3: alarm clock wake -->
+ <g transform="translate(800,520)" filter="url(#glow)">
+  <circle r="58" fill="#1a1205" stroke="url(#g)" stroke-width="5"/>
+  <circle r="28" fill="none" stroke="#ffb020" stroke-width="5"/>
+  <path d="M0 -16 V0 L12 8" stroke="#ffb020" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M-26 -30 l-10 -10 M26 -30 l10 -10" stroke="#ffb020" stroke-width="5" stroke-linecap="round"/>
+  <path d="M-62 -14 q-12 14 0 28 M62 -14 q12 14 0 28" stroke="#ffb02099" stroke-width="4" fill="none" stroke-linecap="round"/>
+ </g>
+ <!-- node 4: done -->
+ <g transform="translate(1090,430)">
+  <circle r="46" fill="#0d1f19" stroke="#34d399" stroke-width="4"/>
+  <path d="M-18 0 l12 12 l24 -26" stroke="#34d399" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+ </g>
+ <!-- tiny labels -->
+ <g font-family="DejaVu Sans Mono" font-size="17" fill="#7c8597" text-anchor="middle">
+  <text x="110" y="600">check</text><text x="470" y="518">sleep</text><text x="800" y="614">⏰ wake</text><text x="1090" y="508">done</text>
+ </g>
+ <!-- big scheduler arc hint -->
+ <g transform="translate(980,150)" opacity="0.9">
+  <circle r="86" fill="none" stroke="#ffb02033" stroke-width="14"/>
+  <circle r="86" fill="none" stroke="url(#g)" stroke-width="14" stroke-dasharray="380 1000" stroke-linecap="round" transform="rotate(-90)"/>
+  <path d="M0 -50 V0 L32 22" stroke="#ffb020" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <circle r="8" fill="#ffb020"/>
+ </g>
+</svg>
+<div style="position:absolute;left:72px;top:252px;font-size:17px;color:#7c8597;letter-spacing:3px;font-weight:700">STRANDS AGENTS · AMAZON BEDROCK · EVENTBRIDGE SCHEDULER</div>
+</body></html>

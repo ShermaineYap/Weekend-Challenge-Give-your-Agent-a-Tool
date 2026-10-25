@@ -5,6 +5,8 @@
 > **Strands Agents** + **Amazon Bedrock** agent do something agents almost never can:
 > **come back later, on its own, and finish the job.**
 
+![Patience](docs/images/cover.jpg)
+
 Every agent lives inside a single request. Ask it to do something that depends on the
 future ("email me when the file lands", "check again in an hour", "remind me tomorrow")
 and the best it can do is tell *you* to come back. The agent has no sense of time.
@@ -33,6 +35,12 @@ challenge it already had three tools: `list_bucket` (S3), `summarise_csv`, `noti
 
 Run it yourself: `python -m patience.cli --before "..."` vs `python -m patience.cli "..."`.
 
+| Before: an empty promise | After: it books itself, live in EventBridge Scheduler |
+|---|---|
+| ![before](docs/images/before_empty_promise.jpg) | ![after](docs/images/after_scheduler.jpg) |
+| **Wake #1: re-checks, reschedules on its own** | **Wake #2: finds the file, emails the result** |
+| ![wake1](docs/images/wake1_reschedule.jpg) | ![wake2](docs/images/wake2_email.jpg) |
+
 ### Measured (real Bedrock, 5 prompts that need waiting)
 
 | Prompt (needs waiting) | BEFORE | AFTER |
@@ -55,6 +63,8 @@ Run it yourself: `python -m patience.cli --before "..."` vs `python -m patience.
 ---
 
 ## How it works
+
+![Architecture](docs/images/architecture.jpg)
 
 ```mermaid
 sequenceDiagram
