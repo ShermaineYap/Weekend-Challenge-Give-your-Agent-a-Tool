@@ -101,7 +101,7 @@ following up on an unanswered email.
 
 ## Run it
 
-Prereqs: Python 3.12, AWS CLI credentials, [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html), Bedrock access to **Amazon Nova Pro** in `us-east-1` (or set `--parameter-overrides ModelId=...`).
+Prereqs: Python 3.12+, AWS CLI credentials, [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html), Bedrock access to **Amazon Nova Pro** in `us-east-1` (or set `--parameter-overrides ModelId=...`).
 
 ```bash
 pip install -r requirements.txt
