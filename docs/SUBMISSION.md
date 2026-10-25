@@ -29,7 +29,7 @@ def schedule_wakeup(minutes_from_now: int, instruction: str, note_to_self: str, 
 
 When the agent calls it, the tool books a **one-shot Amazon EventBridge Scheduler** schedule (`at(...)`, `ActionAfterCompletion=DELETE`). The schedule re-invokes the agent itself, through a Lambda function or an SQS queue, carrying a payload **the agent wrote for its future self**.
 
-When the schedule fires, `handle_wakeup()` starts a fresh agent with the same tools. It tells the agent *"⏰ WAKE-UP #1, you scheduled this yourself 2 min ago"* and passes in the original request, the instruction and the note. The agent re-checks the world, then either finishes (and emails the result) or schedules another wake-up.
+When the schedule fires, `handle_wakeup()` starts a fresh agent with the same tools. It tells the agent *"⏰ WAKE-UP #1, you scheduled this yourself N min ago"* and passes in the original request, the instruction and the note. The agent re-checks the world, then either finishes (and emails the result) or schedules another wake-up.
 
 **Why this tool:** most "add a tool" ideas give an agent more *reach*: another API, another data source. This one gives it a new *dimension*. Monitoring, follow-ups, polling, reminders and retry-later all come from one primitive, and the model decides when to use it.
 
@@ -37,7 +37,7 @@ When the schedule fires, `handle_wakeup()` starts a fresh agent with the same to
 
 Same prompt, same model, same three tools, plus one:
 
-1. Lists the bucket, no file → **schedules itself** for 2 minutes and tells me when it'll check
+1. Lists the bucket, no file → **schedules itself** (it picks the interval, e.g. 30 min; compressed to 1 min for the demo) and tells me when it'll check
 2. ⏰ Wakes up, still no file → **reschedules** (wake #2), carrying its notes forward
 3. I upload the file → ⏰ wakes, finds it, summarises revenue by region, **emails me**, and stops
 
@@ -51,7 +51,7 @@ agent = Agent(tools=[*your_tools, schedule_wakeup], hooks=[WakeupGuard()])
 ```
 
 - **`ToolContext.invocation_state`** carries `wake_depth`, `chain_id` and `original_task` through the run without exposing them to the model as parameters.
-- **`WakeupGuard` (a Strands `HookProvider`)** uses `BeforeToolCallEvent`. It sets `cancel_tool` if the agent tries to go back to sleep on a wake-up turn before re-checking anything, and it can call `event.interrupt(...)` for human approval (`PATIENCE_REQUIRE_APPROVAL=1`).
+- **`WakeupGuard` (a Strands `HookProvider`)** uses `BeforeToolCallEvent`. It sets `cancel_tool` if the agent tries to schedule before it has checked the world with another tool this turn (on first contact and after every wake-up). It also allows only one wake-up per turn, and it can call `event.interrupt(...)` for human approval (`PATIENCE_REQUIRE_APPROVAL=1`).
 - **The payload is the memory.** A woken agent remembers nothing, so the tool's schema makes the model write `instruction` and `note_to_self`. State carries across time with no database.
 - **Safety rails:** max chained wake-ups per task, a cap on how far ahead the agent can schedule, idempotent schedule names (retries don't create duplicates), Scheduler retry policy, least-privilege IAM (the agent can only create schedules in its own group and pass a single role).
 - **Tested offline:** a scripted Strands `Model` drives the full sleep → wake → reschedule → finish loop in `pytest` with no AWS calls. `scripts/eval_before_after.py` measures the behaviour change on real Bedrock.
