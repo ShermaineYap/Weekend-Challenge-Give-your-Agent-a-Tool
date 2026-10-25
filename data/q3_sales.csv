@@ -1,0 +1,151 @@
+date,region,product,units,revenue_myr
+2026-07-01,Klang Valley,Kaya Jar,97,1810.04
+2026-07-01,Penang,Kopi O Beans,57,1719.94
+2026-07-01,Johor,Kopi O Beans,207,4913.2
+2026-07-01,Sabah,Pandan Syrup,129,1162.6
+2026-07-01,Sarawak,Durian Puree,234,2313.35
+2026-07-04,Klang Valley,Kopi O Beans,302,5877.53
+2026-07-04,Penang,Pandan Syrup,83,2787.23
+2026-07-04,Johor,Pandan Syrup,51,1202.67
+2026-07-04,Sabah,Durian Puree,45,1546.15
+2026-07-04,Sarawak,Kopi O Beans,305,9509.49
+2026-07-07,Klang Valley,Kaya Jar,234,2783.4
+2026-07-07,Penang,Kopi O Beans,312,5094.65
+2026-07-07,Johor,Teh Tarik Mix,72,1706.63
+2026-07-07,Sabah,Teh Tarik Mix,210,2232.43
+2026-07-07,Sarawak,Kopi O Beans,308,2959.64
+2026-07-10,Klang Valley,Teh Tarik Mix,274,7225.6
+2026-07-10,Penang,Durian Puree,180,3702.83
+2026-07-10,Johor,Durian Puree,205,3299.21
+2026-07-10,Sabah,Teh Tarik Mix,377,10953.89
+2026-07-10,Sarawak,Kopi O Beans,314,5057.51
+2026-07-13,Klang Valley,Durian Puree,195,5400.53
+2026-07-13,Penang,Kaya Jar,331,11407.82
+2026-07-13,Johor,Kopi O Beans,282,5439.59
+2026-07-13,Sabah,Kaya Jar,97,3220.23
+2026-07-13,Sarawak,Durian Puree,40,1358.98
+2026-07-16,Klang Valley,Kopi O Beans,305,7158.87
+2026-07-16,Penang,Kaya Jar,194,5193.96
+2026-07-16,Johor,Pandan Syrup,274,6482.06
+2026-07-16,Sabah,Durian Puree,55,1687.35
+2026-07-16,Sarawak,Kaya Jar,262,7026.88
+2026-07-19,Klang Valley,Kopi O Beans,51,1414.81
+2026-07-19,Penang,Kaya Jar,351,8285.2
+2026-07-19,Johor,Durian Puree,165,4512.58
+2026-07-19,Sabah,Kaya Jar,31,1035.32
+2026-07-19,Sarawak,Kaya Jar,106,2596.45
+2026-07-22,Klang Valley,Durian Puree,50,694.58
+2026-07-22,Penang,Kaya Jar,86,2402.48
+2026-07-22,Johor,Durian Puree,220,7205.89
+2026-07-22,Sabah,Durian Puree,61,762.01
+2026-07-22,Sarawak,Durian Puree,301,4666.0
+2026-07-25,Klang Valley,Teh Tarik Mix,240,7518.62
+2026-07-25,Penang,Kaya Jar,381,7320.16
+2026-07-25,Johor,Kaya Jar,369,11761.21
+2026-07-25,Sabah,Teh Tarik Mix,97,993.34
+2026-07-25,Sarawak,Teh Tarik Mix,138,3557.63
+2026-07-28,Klang Valley,Kopi O Beans,268,8157.79
+2026-07-28,Penang,Teh Tarik Mix,154,2404.27
+2026-07-28,Johor,Teh Tarik Mix,234,5249.55
+2026-07-28,Sabah,Pandan Syrup,309,5130.18
+2026-07-28,Sarawak,Teh Tarik Mix,373,11637.02
+2026-08-01,Klang Valley,Pandan Syrup,355,9321.38
+2026-08-01,Penang,Kopi O Beans,253,8168.71
+2026-08-01,Johor,Pandan Syrup,220,4124.53
+2026-08-01,Sabah,Durian Puree,73,1533.08
+2026-08-01,Sarawak,Durian Puree,51,670.47
+2026-08-04,Klang Valley,Teh Tarik Mix,245,3033.64
+2026-08-04,Penang,Kaya Jar,327,3080.19
+2026-08-04,Johor,Kopi O Beans,310,3746.09
+2026-08-04,Sabah,Kopi O Beans,206,5061.61
+2026-08-04,Sarawak,Kopi O Beans,126,3097.06
+2026-08-07,Klang Valley,Teh Tarik Mix,344,5094.97
+2026-08-07,Penang,Kaya Jar,328,5849.03
+2026-08-07,Johor,Kopi O Beans,79,2442.78
+2026-08-07,Sabah,Durian Puree,265,5581.84
+2026-08-07,Sarawak,Kopi O Beans,93,1000.59
+2026-08-10,Klang Valley,Kaya Jar,399,6044.23
+2026-08-10,Penang,Teh Tarik Mix,284,2449.1
+2026-08-10,Johor,Pandan Syrup,205,2451.45
+2026-08-10,Sabah,Pandan Syrup,33,939.51
+2026-08-10,Sarawak,Kaya Jar,349,10927.11
+2026-08-13,Klang Valley,Kaya Jar,285,5101.75
+2026-08-13,Penang,Teh Tarik Mix,202,5826.15
+2026-08-13,Johor,Pandan Syrup,297,8623.24
+2026-08-13,Sabah,Kaya Jar,345,4837.63
+2026-08-13,Sarawak,Teh Tarik Mix,142,4273.49
+2026-08-16,Klang Valley,Teh Tarik Mix,122,2681.1
+2026-08-16,Penang,Kaya Jar,394,3460.29
+2026-08-16,Johor,Kopi O Beans,163,3382.33
+2026-08-16,Sabah,Teh Tarik Mix,374,9102.69
+2026-08-16,Sarawak,Kaya Jar,248,7398.16
+2026-08-19,Klang Valley,Kaya Jar,206,2095.95
+2026-08-19,Penang,Kopi O Beans,136,2814.13
+2026-08-19,Johor,Kaya Jar,124,2607.92
+2026-08-19,Sabah,Pandan Syrup,20,418.92
+2026-08-19,Sarawak,Kaya Jar,349,3590.87
+2026-08-22,Klang Valley,Kopi O Beans,218,6348.63
+2026-08-22,Penang,Teh Tarik Mix,264,8448.87
+2026-08-22,Johor,Durian Puree,345,5857.4
+2026-08-22,Sabah,Durian Puree,257,4841.22
+2026-08-22,Sarawak,Kopi O Beans,391,4805.04
+2026-08-25,Klang Valley,Teh Tarik Mix,34,410.76
+2026-08-25,Penang,Durian Puree,355,4241.08
+2026-08-25,Johor,Pandan Syrup,262,6745.52
+2026-08-25,Sabah,Kaya Jar,99,2258.57
+2026-08-25,Sarawak,Teh Tarik Mix,30,251.54
+2026-08-28,Klang Valley,Kopi O Beans,289,8160.32
+2026-08-28,Penang,Teh Tarik Mix,242,8382.11
+2026-08-28,Johor,Teh Tarik Mix,128,1120.75
+2026-08-28,Sabah,Teh Tarik Mix,169,3638.8
+2026-08-28,Sarawak,Pandan Syrup,186,2790.53
+2026-09-01,Klang Valley,Durian Puree,87,839.06
+2026-09-01,Penang,Kaya Jar,254,6575.25
+2026-09-01,Johor,Pandan Syrup,235,7128.2
+2026-09-01,Sabah,Pandan Syrup,86,1922.9
+2026-09-01,Sarawak,Pandan Syrup,281,2389.91
+2026-09-04,Klang Valley,Durian Puree,113,2760.7
+2026-09-04,Penang,Teh Tarik Mix,108,1276.79
+2026-09-04,Johor,Pandan Syrup,391,4398.39
+2026-09-04,Sabah,Kopi O Beans,186,4914.67
+2026-09-04,Sarawak,Pandan Syrup,304,6392.25
+2026-09-07,Klang Valley,Kopi O Beans,306,2917.47
+2026-09-07,Penang,Teh Tarik Mix,161,1471.44
+2026-09-07,Johor,Kopi O Beans,279,5638.24
+2026-09-07,Sabah,Kopi O Beans,52,1038.32
+2026-09-07,Sarawak,Pandan Syrup,278,6773.67
+2026-09-10,Klang Valley,Teh Tarik Mix,374,5791.02
+2026-09-10,Penang,Pandan Syrup,293,8731.04
+2026-09-10,Johor,Pandan Syrup,146,3924.32
+2026-09-10,Sabah,Kaya Jar,306,9823.94
+2026-09-10,Sarawak,Teh Tarik Mix,249,2913.95
+2026-09-13,Klang Valley,Kopi O Beans,220,4386.18
+2026-09-13,Penang,Kopi O Beans,363,5262.5
+2026-09-13,Johor,Kopi O Beans,128,3337.7
+2026-09-13,Sabah,Kopi O Beans,99,3303.3
+2026-09-13,Sarawak,Kaya Jar,93,1379.55
+2026-09-16,Klang Valley,Teh Tarik Mix,259,3607.58
+2026-09-16,Penang,Kopi O Beans,223,7112.18
+2026-09-16,Johor,Teh Tarik Mix,361,11001.84
+2026-09-16,Sabah,Teh Tarik Mix,381,7487.06
+2026-09-16,Sarawak,Pandan Syrup,226,3877.29
+2026-09-19,Klang Valley,Teh Tarik Mix,202,3353.24
+2026-09-19,Penang,Kaya Jar,29,496.64
+2026-09-19,Johor,Durian Puree,245,6611.35
+2026-09-19,Sabah,Durian Puree,189,4152.46
+2026-09-19,Sarawak,Kaya Jar,282,9571.34
+2026-09-22,Klang Valley,Kopi O Beans,137,4690.3
+2026-09-22,Penang,Kopi O Beans,63,955.72
+2026-09-22,Johor,Kopi O Beans,112,1713.83
+2026-09-22,Sabah,Teh Tarik Mix,236,7301.57
+2026-09-22,Sarawak,Kaya Jar,227,2731.48
+2026-09-25,Klang Valley,Pandan Syrup,312,6662.61
+2026-09-25,Penang,Kaya Jar,65,1009.75
+2026-09-25,Johor,Teh Tarik Mix,237,7624.93
+2026-09-25,Sabah,Kaya Jar,28,703.64
+2026-09-25,Sarawak,Kaya Jar,62,1514.09
+2026-09-28,Klang Valley,Teh Tarik Mix,54,817.57
+2026-09-28,Penang,Kopi O Beans,252,2094.56
+2026-09-28,Johor,Pandan Syrup,233,7693.68
+2026-09-28,Sabah,Kaya Jar,338,3883.31
+2026-09-28,Sarawak,Pandan Syrup,383,5529.67
